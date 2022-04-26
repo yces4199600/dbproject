@@ -4,9 +4,9 @@
       <div class="form-group">
         <label>輸入學號</label>
         <!-- TODO:修改長度 -->
-        <input class="form-control">
+        <input class="form-control" v-model="current_user">
       </div>
-      <button @click="checkList()" type="submit" class="mb-3 btn btn-primary">查詢課表</button>
+      <button @click="checkList()" class="mb-3 btn btn-primary">查詢課表</button>
     </form>
   </div>
 
@@ -61,6 +61,7 @@ export default {
   name:"Revise",
   data() {
     return {
+      current_user:"",
       arr: [
         {id:"1",class:"2",name:"3",must:"4",credit:"5"},
         {id:"6",class:"7",name:"8",must:"9",credit:"10"}
@@ -73,19 +74,23 @@ export default {
     }
   },
   methods:{
+    // submit(){
+    //   // TODO: 可以做點加密
+    //   let destin = ''
+    //   if(this.path == '登入') destin = 'loginn'
+    //   else if(this.path == '註冊') destin = 'signUpp'
+    //   this.$http.post("http://localhost:8080/1234", {
+    //     id: 123,
+    //   })
+    //   .then( r => {
+    //     console.log(r)
+    //   })
+    //   .catch( r => console.log(r))
+    // },
     checkList(){
-      // this.$http.get("http://127.0.0.1:5000/checkList")
-      // .then( r => {
-      //   console.log(r)
-      // })
-      // .catch( r => console.log(r))
-      this.$http.post('http://7d3e-1-168-129-225.ngrok.io/123',{
-        data:{ e04: 'eeadf' },
-        headers:{
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
-    }
+      console.log(this.current_user)
+      this.$http.post('http://localhost:8080/usertakes',{
+        data:{ current_user : this.current_user },
   })
       .then( r => {
         console.log(r)

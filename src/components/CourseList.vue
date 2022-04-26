@@ -12,21 +12,19 @@
         <th scope="col">開課系所</th>
         <th scope="col">上限人數</th>
         <th scope="col">已選人數</th>
-        <th scope="col">授課教師</th>
       </tr>
     </thead>
     <tbody>
       <tr  v-for="(item,index) in getCourse" :key="item.id">
         <th scope="row">{{ index+1 }}</th>
-        <td>{{ item.class }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.id }}</td>
-        <td>{{ item.credit }}</td>
-        <td>{{ item.must }}</td>
-        <td>{{ item.department }}</td>
-        <td>{{ item.limit }}</td>
-        <td>{{ item.current }}</td>
-        <td>{{ item.teacher }}</td>
+        <td>{{ item.class_Name }}</td>
+        <td>{{ item.course_Name }}</td>
+        <td>{{ item.course_ID }}</td>
+        <td>{{ item.credits }}</td>
+        <td>{{ item.required_Elective_subject }}</td>
+        <td>{{ item.dep_Name }}</td>
+        <td>{{ item.capacity }}</td>
+        <td>{{ item.numbers }}</td>
       </tr>
     </tbody>
   </table>
@@ -38,10 +36,7 @@ export default {
   name:"List",
   data() {
     return {
-      arr: [
-        {class:"1",name:"2",id:"3",credit:"4",must:"5",department:"6",limit:"7",current:"8",teacher:"9"},
-        {class:"11",name:"12",id:"13",credit:"14",must:"15",department:"16",limit:"17",current:"18",teacher:"19"}
-      ],
+      arr: [],
     }
   },
   computed: {
@@ -49,5 +44,15 @@ export default {
       return this.arr
     }
   },
+  mounted(){
+    console.log("on")
+    this.$http.get('http://localhost:8080/getCourse')
+    .then( r =>  {
+      this.arr = r.data
+      console.log(r)
+    })
+    .catch( r => console.log(r))
+    console.log("off")
+  }
 }
 </script>
